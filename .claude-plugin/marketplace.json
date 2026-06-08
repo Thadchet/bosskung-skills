@@ -1,0 +1,22 @@
+{
+  "name": "bosskung-skills",
+  "owner": {
+    "name": "Thadchet",
+    "email": "thadchet.k@gmail.com"
+  },
+  "metadata": {
+    "description": "Bosskung Skills is a collection of skills developed by Thadchet, showcasing a wide range of capabilities including document processing, skill creation, MCP building, visual design, algorithmic art, internal communications, web testing, artifact building, Slack GIFs, theme styling, and Claude API documentation for building LLM-powered applications.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "bosskung-skills",
+      "description": "Collection of Bosskung skills including planning, execution, and review capabilities",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/bosskung-plan"
+      ]
+    }
+  ]
+}
