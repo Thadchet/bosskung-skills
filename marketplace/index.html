@@ -102,7 +102,10 @@
             list.appendChild(li);
           }
         } catch {
-          list.innerHTML = '<li class="card">Failed to load skills catalog.</li>';
+          const error = document.createElement('li');
+          error.className = 'card';
+          error.textContent = 'Failed to load skills catalog.';
+          list.replaceChildren(error);
         }
       }
 

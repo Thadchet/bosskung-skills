@@ -14,7 +14,7 @@ python3 -m http.server 8080
 
 Then visit `http://localhost:8080`.
 
-## Included generated skills
+## Included generated skills (examples)
 
 - Prompt Polisher
 - Meeting Summarizer
