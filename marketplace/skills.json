@@ -1,0 +1,29 @@
+[
+  {
+    "id": "prompt-polisher",
+    "name": "Prompt Polisher",
+    "category": "Productivity",
+    "description": "Refines rough prompts into clearer, goal-focused Claude requests.",
+    "author": "Bosskung",
+    "version": "1.0.0",
+    "installCommand": "claude plugins install prompt-polisher"
+  },
+  {
+    "id": "meeting-summarizer",
+    "name": "Meeting Summarizer",
+    "category": "Work",
+    "description": "Turns meeting notes into concise summaries, actions, and owners.",
+    "author": "Bosskung",
+    "version": "1.0.0",
+    "installCommand": "claude plugins install meeting-summarizer"
+  },
+  {
+    "id": "bug-hunter",
+    "name": "Bug Hunter",
+    "category": "Engineering",
+    "description": "Generates step-by-step bug triage plans and reproducible debug checklists.",
+    "author": "Bosskung",
+    "version": "1.0.0",
+    "installCommand": "claude plugins install bug-hunter"
+  }
+]
