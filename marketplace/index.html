@@ -63,7 +63,7 @@
     <main>
       <h1>Claude Plugin Marketplace</h1>
       <p class="subtitle">Browse generated skills and copy install commands.</p>
-      <ul id="skills" aria-live="polite"></ul>
+      <ul id="skills"></ul>
     </main>
     <script>
       async function loadSkills() {
@@ -71,7 +71,9 @@
         try {
           const response = await fetch('./skills.json');
           if (!response.ok) {
-            throw new Error(`Unable to load skills: HTTP ${response.status}`);
+            const loadError = new Error('Unable to load skills');
+            loadError.status = response.status;
+            throw loadError;
           }
           const skills = await response.json();
           for (const skill of skills) {
@@ -104,8 +106,8 @@
         } catch (error) {
           const errorCard = document.createElement('li');
           errorCard.className = 'card';
-          const statusMatch = error instanceof Error ? error.message.match(/HTTP (\d{3})/) : null;
-          const statusNote = statusMatch ? ` (HTTP ${statusMatch[1]})` : '';
+          const status = typeof error?.status === 'number' ? error.status : null;
+          const statusNote = status ? ` (HTTP ${status})` : '';
           errorCard.textContent = `Failed to load skills catalog${statusNote}. Check that skills.json is available and retry.`;
           list.replaceChildren(errorCard);
         }
