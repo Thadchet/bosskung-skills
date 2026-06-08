@@ -77,13 +77,17 @@
           for (const skill of skills) {
             const li = document.createElement('li');
             li.className = 'card';
-            li.innerHTML = `
-              <h2>${skill.name}</h2>
-              <p>${skill.description}</p>
-              <p class="meta">${skill.category} · v${skill.version} · by ${skill.author}</p>
-              <button type="button">Copy install command</button>
-            `;
-            const button = li.querySelector('button');
+            const title = document.createElement('h2');
+            title.textContent = skill.name;
+            const description = document.createElement('p');
+            description.textContent = skill.description;
+            const meta = document.createElement('p');
+            meta.className = 'meta';
+            meta.textContent = `${skill.category} · v${skill.version} · by ${skill.author}`;
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.textContent = 'Copy install command';
+            li.append(title, description, meta, button);
             button.addEventListener('click', async () => {
               try {
                 await navigator.clipboard.writeText(skill.installCommand);

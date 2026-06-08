@@ -4,11 +4,11 @@ A minimal Claude plugin marketplace with generated sample skills.
 
 ## Marketplace
 
-- Open `/tmp/workspace/Thadchet/bosskung-skills/marketplace/index.html` in a browser
+- Open `marketplace/index.html` in a browser
 - Or serve the folder:
 
 ```bash
-cd /tmp/workspace/Thadchet/bosskung-skills/marketplace
+cd marketplace
 python3 -m http.server 8080
 ```
 
