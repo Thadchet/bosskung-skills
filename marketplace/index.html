@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Claude Plugin Marketplace</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      }
+      body {
+        margin: 0;
+        background: #f4f6fb;
+        color: #1f2937;
+      }
+      main {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+      }
+      h1 {
+        margin: 0;
+      }
+      .subtitle {
+        color: #4b5563;
+        margin-top: 0.5rem;
+      }
+      #skills {
+        list-style: none;
+        padding: 0;
+        margin: 2rem 0 0;
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      }
+      .card {
+        background: #fff;
+        border-radius: 12px;
+        border: 1px solid #e5e7eb;
+        padding: 1rem;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+      }
+      .meta {
+        color: #6b7280;
+        font-size: 0.9rem;
+      }
+      button {
+        margin-top: 0.75rem;
+        border: none;
+        background: #111827;
+        color: white;
+        border-radius: 8px;
+        padding: 0.45rem 0.7rem;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #374151;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Claude Plugin Marketplace</h1>
+      <p class="subtitle">Browse generated skills and copy install commands.</p>
+      <ul id="skills"></ul>
+    </main>
+    <script>
+      async function loadSkills() {
+        const list = document.getElementById('skills');
+        try {
+          const response = await fetch('./skills.json');
+          if (!response.ok) {
+            const loadError = new Error('Unable to load skills');
+            loadError.status = response.status;
+            throw loadError;
+          }
+          const skills = await response.json();
+          for (const skill of skills) {
+            const li = document.createElement('li');
+            li.className = 'card';
+            const title = document.createElement('h2');
+            title.textContent = skill.name;
+            const description = document.createElement('p');
+            description.textContent = skill.description;
+            const meta = document.createElement('p');
+            meta.className = 'meta';
+            meta.textContent = `${skill.category} · v${skill.version} · by ${skill.author}`;
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.textContent = 'Copy install command';
+            li.append(title, description, meta, button);
+            button.addEventListener('click', async () => {
+              try {
+                await navigator.clipboard.writeText(skill.installCommand);
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                  button.textContent = 'Copy install command';
+                }, 1200);
+              } catch {
+                button.textContent = skill.installCommand;
+              }
+            });
+            list.appendChild(li);
+          }
+        } catch (error) {
+          const errorCard = document.createElement('li');
+          errorCard.className = 'card';
+          const status = typeof error?.status === 'number' ? error.status : null;
+          const statusNote = status ? ` (HTTP ${status})` : '';
+          errorCard.textContent = `Failed to load skills catalog${statusNote}. Check that skills.json is available and retry.`;
+          list.replaceChildren(errorCard);
+        }
+      }
+
+      loadSkills();
+    </script>
+  </body>
+</html>
