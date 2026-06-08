@@ -71,7 +71,7 @@
         try {
           const response = await fetch('./skills.json');
           if (!response.ok) {
-            throw new Error('Unable to load skills');
+            throw new Error(`Unable to load skills: HTTP ${response.status}`);
           }
           const skills = await response.json();
           for (const skill of skills) {
@@ -101,11 +101,12 @@
             });
             list.appendChild(li);
           }
-        } catch {
-          const error = document.createElement('li');
-          error.className = 'card';
-          error.textContent = 'Failed to load skills catalog.';
-          list.replaceChildren(error);
+        } catch (error) {
+          const errorCard = document.createElement('li');
+          errorCard.className = 'card';
+          const message = error instanceof Error ? error.message : 'Unknown error';
+          errorCard.textContent = `Failed to load skills catalog (${message}). Check that skills.json is available and retry.`;
+          list.replaceChildren(errorCard);
         }
       }
 
