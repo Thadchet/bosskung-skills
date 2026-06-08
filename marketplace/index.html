@@ -104,8 +104,9 @@
         } catch (error) {
           const errorCard = document.createElement('li');
           errorCard.className = 'card';
-          const message = error instanceof Error ? error.message : 'Unknown error';
-          errorCard.textContent = `Failed to load skills catalog (${message}). Check that skills.json is available and retry.`;
+          const statusMatch = error instanceof Error ? error.message.match(/HTTP (\d{3})/) : null;
+          const statusNote = statusMatch ? ` (HTTP ${statusMatch[1]})` : '';
+          errorCard.textContent = `Failed to load skills catalog${statusNote}. Check that skills.json is available and retry.`;
           list.replaceChildren(errorCard);
         }
       }
