@@ -15,7 +15,8 @@
       "source": "./",
       "strict": false,
       "skills": [
-        "./skills/bosskung-plan"
+        "./skills/bosskung-plan",
+        "./skills/html-visualizer"
       ]
     }
   ]
